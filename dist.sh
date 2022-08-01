@@ -6,8 +6,6 @@ cd $_DIR
 
 set -ex
 
-npm run prepare
-
 version=$(cat package.json|jq -r '.version')
 
 add(){

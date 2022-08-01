@@ -1,0 +1,1 @@
+nodejs loader for coffeescript
