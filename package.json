@@ -1,0 +1,18 @@
+{
+  "name": "@iuser/node-loader",
+  "repository": "https://github.com/iuser-dev/nodejs-loader.git",
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "lib/*"
+  ],
+  "version": "0.0.3",
+  "scripts": {
+    "build": "coffee -o lib -c src"
+  },
+  "main": "lib/index.js",
+  "devDependencies": {
+    "@rmw/coffee-label-patch": "^0.0.17",
+    "coffeescript": "^2.7.0"
+  }
+}
