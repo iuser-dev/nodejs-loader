@@ -1,9 +1,9 @@
 #!/usr/bin/env coffee
 
 import { readFile } from "fs/promises"
-import { readFileSync } from "fs"
+import { readFileSync, existsSync } from "fs"
 import { createRequire } from "module"
-import { dirname, extname, resolve as resolvePath } from "path"
+import { dirname, extname, join, resolve as resolvePath } from "path"
 import { cwd } from "process"
 import { fileURLToPath, pathToFileURL } from "url"
 import CoffeeScript from "coffeescript"
@@ -13,39 +13,47 @@ compile = coffee_label_patch(CoffeeScript)
 
 baseURL = pathToFileURL("#{cwd}/").href
 
-is_coffee = (specifier)=>
-  specifier.slice(specifier.lastIndexOf(".") + 1) == 'coffee'
+not_coffee = (specifier)=>
+  specifier.slice(specifier.lastIndexOf(".") + 1) != 'coffee'
 
 export resolve = (specifier, context, defaultResolve) =>
   { parentURL = baseURL } = context
 
-  if is_coffee(specifier)
-    return {
-      shortCircuit: true,
-      url: new URL(specifier, parentURL).href
-    }
+  if not_coffee(specifier)
+    loop
+      if specifier.startsWith("./") and parentURL.startsWith('file://')
+        file = specifier+'.coffee'
+        fp = join dirname(parentURL[7..]),file[2..]
+        if existsSync fp
+          specifier = fp
+          break
+      return defaultResolve(specifier, context, defaultResolve)
 
-  defaultResolve(specifier, context, defaultResolve)
+  {
+    shortCircuit: true,
+    url: new URL(specifier, parentURL).href
+  }
+
 
 export load = (url, context, defaultLoad)=>
-  if is_coffee(url)
-    format = await getPackageType(url)
-    if format == "commonjs"
-      return { format }
+  if not_coffee(url)
+    return defaultLoad(url, context, defaultLoad)
+  format = await getPackageType(url)
+  if format == "commonjs"
+    return { format }
 
-    { source: rawSource } = await defaultLoad(url, { format })
-    transformedSource = compile(rawSource.toString(), {
-      bare: true,
-      filename: url,
-      inlineMap: true,
-    })
+  { source: rawSource } = await defaultLoad(url, { format })
+  transformedSource = compile(rawSource.toString(), {
+    bare: true,
+    filename: url,
+    inlineMap: true,
+  })
 
-    return {
-      format
-      source: transformedSource,
-    }
+  return {
+    format
+    source: transformedSource,
+  }
 
-  return defaultLoad(url, context, defaultLoad)
 
 getPackageType = (url) =>
   isFilePath = !!extname(url)
