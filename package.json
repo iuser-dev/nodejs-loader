@@ -12,7 +12,9 @@
   },
   "main": "lib/index.js",
   "devDependencies": {
-    "@rmw/coffee-label-patch": "^0.0.17",
     "coffeescript": "^2.7.0"
+  },
+  "dependencies": {
+    "coffee_plus": "^0.0.9"
   }
 }
