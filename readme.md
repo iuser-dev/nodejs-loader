@@ -34,13 +34,15 @@ exec node  --trace-warnings \
 ```coffee
 #!/usr/bin/env coffee
 
+>
+  ./import:x
+
 + a
 
 a = 1
 
 console.log a
 
-import x from './import'
 
 console.log x
 ```

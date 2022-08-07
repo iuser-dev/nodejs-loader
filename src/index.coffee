@@ -7,9 +7,9 @@ import { dirname, extname, join, resolve as resolvePath } from "path"
 import { cwd } from "process"
 import { fileURLToPath, pathToFileURL } from "url"
 import CoffeeScript from "coffeescript"
-import {coffee_label_patch} from '@rmw/coffee-label-patch'
+import {coffee_plus} from 'coffee_plus'
 
-compile = coffee_label_patch(CoffeeScript)
+compile = coffee_plus(CoffeeScript)
 
 baseURL = pathToFileURL("#{cwd}/").href
 
