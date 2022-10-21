@@ -51,6 +51,9 @@ export resolve = (specifier, context, defaultResolve) =>
 
 
 export load = (url, context, defaultLoad)=>
+  if url.endsWith('.node')
+    require = createRequire(url)
+    return require(url)
   if not_coffee(url)
     return defaultLoad(url, context, defaultLoad)
   format = getPackageType(url)
@@ -68,7 +71,6 @@ export load = (url, context, defaultLoad)=>
     format
     source: transformedSource,
   }
-
 
 getPackageType = (url) =>
   isFilePath = !!extname(url)
