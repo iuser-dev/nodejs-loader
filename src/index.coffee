@@ -1,7 +1,9 @@
 #!/usr/bin/env coffee
 
-import { existsSync, readFileSync } from "fs"
-import { createRequire } from "module"
+> @u6x/jsext/jsext
+  fs > existsSync readFileSync
+
+# import { createRequire } from "module"
 import { dirname, normalize, extname, join, resolve as resolvePath } from "path"
 import { cwd } from "process"
 import { fileURLToPath, pathToFileURL } from "url"
@@ -14,19 +16,6 @@ baseURL = pathToFileURL("#{cwd}/").href
 
 not_coffee = (specifier)=>
   specifier.slice(specifier.lastIndexOf(".") + 1) != 'coffee'
-
-JS_SUFFIX = '.js'
-
-jsext = (specifier)=>
-  if specifier.startsWith '@'
-    begin = specifier.indexOf('/',1)+1
-  else
-    begin = 1
-
-  pos = specifier.indexOf('/',begin)
-  if pos > 0 and not specifier[pos+1..].split('/').pop().includes('.')
-    specifier+=JS_SUFFIX
-  specifier
 
 export resolve = (specifier, context, defaultResolve) =>
   { parentURL = baseURL } = context
