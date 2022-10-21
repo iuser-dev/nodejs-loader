@@ -50,17 +50,20 @@ export resolve = (specifier, context, defaultResolve) =>
   }
 
 
+COMMONJS = {
+  format:'commonjs'
+  shortCircuit:true
+}
+
 export load = (url, context, defaultLoad)=>
   if url.endsWith('.node')
-    return {
-      format:'commonjs'
-    }
+    return COMMONJS
 
   if not_coffee(url)
     return defaultLoad(url, context, defaultLoad)
   format = getPackageType(url)
   if format == "commonjs"
-    return { format }
+    return COMMONJS
 
   { source: rawSource } = await defaultLoad(url, { format })
   transformedSource = compile(rawSource.toString(), {
