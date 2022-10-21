@@ -18,8 +18,6 @@ add() {
   git commit -m v$version || true
 }
 
-add
-
 git pull
 nr build
 npm set unsafe-perm true
