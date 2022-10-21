@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 
-> @u6x/jsext/jsext
+> @u6x/jsext/jsext.js
   fs > existsSync readFileSync
 
 # import { createRequire } from "module"
