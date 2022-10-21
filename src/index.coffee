@@ -52,8 +52,10 @@ export resolve = (specifier, context, defaultResolve) =>
 
 export load = (url, context, defaultLoad)=>
   if url.endsWith('.node')
-    require = createRequire(url)
-    return require(url)
+    return {
+      format:'commonjs'
+    }
+
   if not_coffee(url)
     return defaultLoad(url, context, defaultLoad)
   format = getPackageType(url)
@@ -69,6 +71,7 @@ export load = (url, context, defaultLoad)=>
 
   return {
     format
+    shortCircuit: true
     source: transformedSource,
   }
 
