@@ -12,11 +12,11 @@
   },
   "main": "lib/index.js",
   "devDependencies": {
-    "utax": "^0.0.9"
+    "utax": "^0.0.16"
   },
   "dependencies": {
-    "@u6x/jsext": "^0.0.19",
-    "coffee_plus": "^0.0.42",
+    "@u6x/jsext": "^0.0.26",
+    "coffee_plus": "^0.0.43",
     "coffeescript": "^2.7.0"
   }
 }
