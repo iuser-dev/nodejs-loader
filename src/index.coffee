@@ -50,7 +50,7 @@ export load = (url, context, defaultLoad)=>
 
   if not_coffee(url)
     return defaultLoad(url, context, defaultLoad)
-  format = getPackageType(url)
+  format = getPackageType(fileURLToPath url)
   if format == "commonjs"
     return COMMONJS
 
@@ -68,7 +68,7 @@ export load = (url, context, defaultLoad)=>
   }
 
 getPackageType = (url) =>
-  isFilePath = !!extname(url)
+  isFilePath = ["js", "mjs", "coffee"].includes(extname(url)[1..])
   dir = if isFilePath then dirname(fileURLToPath(url)) else url
   packagePath = resolvePath(dir, "package.json")
   try
