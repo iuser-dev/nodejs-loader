@@ -69,7 +69,7 @@ export load = (url, context, defaultLoad)=>
 
 getPackageType = (url) =>
   isFilePath = ["js", "mjs", "coffee"].includes(extname(url)[1..])
-  dir = if isFilePath then dirname(fileURLToPath(url)) else url
+  dir = if isFilePath then dirname(url) else url
   packagePath = resolvePath(dir, "package.json")
   try
     {type} = JSON.parse readFileSync(packagePath, { encoding: "utf8" })
