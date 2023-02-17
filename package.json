@@ -12,7 +12,6 @@
   },
   "main": "lib/index.js",
   "devDependencies": {
-    "utax": "^0.0.40"
   },
   "dependencies": {
     "@u6x/jsext": "^0.0.27",

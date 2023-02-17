@@ -32,7 +32,6 @@ exec node \
 #!/usr/bin/env coffee
 
 > ./import:x
-  utax/split
 
 + a
 
