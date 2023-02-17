@@ -6,13 +6,12 @@
   "files": [
     "lib/*"
   ],
-  "version": "0.0.48",
+  "version": "0.0.49",
   "scripts": {
     "build": "cep -o lib -c src"
   },
   "main": "lib/index.js",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "@u6x/jsext": "^0.0.27",
     "coffee_plus": "^0.0.55",
